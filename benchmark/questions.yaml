@@ -1,0 +1,51 @@
+# Benchmark questions with answer keys for grading the agent (Part 2).
+# Each answer is derivable from testdlls/testlib.c, the ground truth. Grade the
+# agent's answers against `expected` with the rubric; a classmate scores the
+# purpose-accuracy items independently.
+#
+# metrics graded per run: answer accuracy, evidence validity, false "observed"
+# claims, tool calls per question, time per question.
+
+target: testdlls/build/test_O0.dll
+
+questions:
+  - id: q1
+    ask: "Does this DLL touch the registry? Which function and which API?"
+    expected: "Yes. write_count calls RegCreateKeyExW and RegSetValueExW."
+    labels: [observed]
+
+  - id: q2
+    ask: "What does the export xor_cipher do?"
+    expected: "Symmetric XOR of a buffer against a repeating key (buf[i] ^= key[i % klen])."
+    labels: [observed, inferred]
+
+  - id: q3
+    ask: "Is there any network activity in this DLL?"
+    expected: "No. No winhttp/ws2_32/wininet imports; nothing contacts the network."
+    labels: [observed]
+
+  - id: q4
+    ask: "Which function is recursive?"
+    expected: "factorial calls itself (n * factorial(n-1))."
+    labels: [observed, inferred]
+
+  - id: q5
+    ask: "What does checksum16 compute?"
+    expected: "A Fletcher-16 checksum: two running sums mod 255, combined as (sum2<<8)|sum1."
+    labels: [inferred]
+
+  - id: q6
+    ask: "Does classify use a jump table?"
+    expected: "It is a switch on a byte; -O2 may compile it to a jump table, -O0 to compares."
+    labels: [observed, inferred]
+
+# Experiments to report (strongest part of the write-up):
+#   1. Qwen 7B vs 14B as planner.
+#   2. With vs without the capa triage step.
+#   3. -O0 vs -O2 targets (optimised code is harder).
+#   4. Local models vs the MCP server driven by Claude Code (upper-bound reference).
+experiments:
+  planner_models: [qwen2.5:7b, qwen2.5:14b]
+  capa_triage: [on, off]
+  optimisation: [O0, O2]
+  reference: claude-code-over-mcp

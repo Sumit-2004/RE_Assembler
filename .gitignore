@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+venv/
+.venv/
+*.egg-info/
+
+# Analysis output & caches (generated at runtime)
+out/
+*.sqlite
+cache.sqlite
+
+# Built test DLLs (compile locally with testdlls/build.sh)
+testdlls/build/
+
+# Deck render artifacts
+*.pdf
+docs/slide-*.jpg
+docs/*-thumbs*.jpg
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+node_modules/

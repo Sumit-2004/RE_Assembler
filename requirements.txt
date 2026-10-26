@@ -1,0 +1,5 @@
+# Static + native-disassembly layer -- runs on Windows, no WSL. Enough for the
+# GUI's triage, exports, imports AND the IDA-style graph view (Capstone).
+# For the LLM / radare2 / agent stages, use requirements-full.txt on the Linux VM.
+pefile>=2024.8.26
+capstone>=5.0.1

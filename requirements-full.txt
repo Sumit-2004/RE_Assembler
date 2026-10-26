@@ -1,0 +1,14 @@
+# Full pipeline + agent -- the Linux VM. Install after the system tools from the
+# README (radare2, r2ghidra, Ollama, mingw-w64). Some backends (capa rules,
+# ilspycmd) need an extra one-time fetch; see the README.
+pefile>=2024.8.26
+r2pipe>=1.9.0
+ollama>=0.3.0
+graphviz>=0.20
+streamlit>=1.37
+flare-capa>=7.0.0
+flare-floss>=3.0.0
+dnfile>=0.15.0
+signify>=0.6.0
+mcp[cli]>=1.2.0
+pyyaml>=6.0
